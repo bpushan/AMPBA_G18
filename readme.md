@@ -1,1 +1,2 @@
-# NLP Assignment
+# Foundational Project
+#### Stock price prediction
