@@ -3,8 +3,6 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import re
-
-import matplotlib as plt
 from plotly import graph_objs as go
 
 st.set_page_config(page_title= "Predicting Stock Prices for Informed Investment Decisions", layout="wide")
