@@ -2,18 +2,46 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
+import requests
 import re
 from plotly import graph_objs as go
 
 st.set_page_config(page_title= "Predicting Stock Prices for Informed Investment Decisions", layout="wide")
 ## Load the dataset
 
+# Function to load CSV file from GitHub
+def load_csv_from_github(url):
+    response = requests.get(url)
+    response.raise_for_status()  # Ensure we notice bad responses
+    return pd.read_csv(pd.compat.StringIO(response.text))
+
 def load_price_data():
-    file_data = pd.read_csv("stock_prc_data.csv",encoding = "ISO-8859-1")
+    # URL of the CSV file in GitHub
+    github_url = 'https://raw.githubusercontent.com/bpushan/AMPBA_G18/FP2/stock_prc_data.csv'
+    #file_data = pd.read_csv("stock_prc_data.csv",encoding = "ISO-8859-1")
+    
+    # Load the CSV file into a DataFrame
+    try:
+        df = load_csv_from_github(github_url)
+        st.write("CSV file successfully loaded!")
+    except Exception as e:
+        st.error(f"Error loading CSV file: {e}")
+        file_data = pd.DataFrame()  # Create an empty DataFrame to avoid errors below
     return file_data
     
 def load_pred_data():
-    file_data = pd.read_csv("Stock_Prediction.csv",encoding = "ISO-8859-1")
+    # URL of the CSV file in GitHub
+    github_url = 'https://raw.githubusercontent.com/bpushan/AMPBA_G18/FP2/Stock_Prediction.csv'
+    
+    #file_data = pd.read_csv("Stock_Prediction.csv",encoding = "ISO-8859-1")
+    # Load the CSV file into a DataFrame
+    try:
+        df = load_csv_from_github(github_url)
+        st.write("CSV file successfully loaded!")
+    except Exception as e:
+        st.error(f"Error loading CSV file: {e}")
+        file_data = pd.DataFrame()  # Create an empty DataFrame to avoid errors below
+
     file_data = pd.DataFrame(file_data)
     return file_data
 
